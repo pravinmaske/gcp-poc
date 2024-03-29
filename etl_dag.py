@@ -31,7 +31,7 @@ with dag:
     start_pipeline = CloudDataFusionStartPipelineOperator(
         location='us-central1',
         pipeline_name='etl_pipeline',
-        instance_name="fusion-dev",
+        instance_name="fusion-dev1",
         task_id="start_datafusion_pipeline",
     )
     run_data_extractor >> start_pipeline
