@@ -1,3 +1,13 @@
+1. Create Composer Instance
+	- You will need to enable Cloud Composer API at first
+	- Create Composer Instance
+	 - Grant the Cloud Composer v2 API Service Agent Extension role to the service-472366960613@cloudcomposer-accounts.iam.gserviceaccount.com service account.
+	   Service account 472366960613-compute@developer.gserviceaccount.com will be used as a resource.
+	-    
+2. Create Cloud Data Fusion instance
+	- Enable Cloud Data Fusion API
+	- 
+
 You will need to install below packages 
 1. faker
 2. google-cloud-storage

@@ -14,22 +14,22 @@ def generate_employee_data(num_records):
         #name = f"{first_name} {last_name}"
         email = fake.email()
         phone_number = fake.phone_number()
-        address = fake.address()
+        address = fake.city()
         ssn = fake.ssn()
-        job_title = fake.job()
-        department = fake.random_element(elements=('HR', 'IT', 'Finance', 'Marketing', 'Operations'))
-        salary = random.randint(30000, 120000)
+        job_title = fake.job() # Generate 
+        department = fake.job() # Generate department-like data using the job() method
+        #department = fake.random_element(elements=('HR', 'IT', 'Finance', 'Marketing', 'Operations'))  # Generate department-like data using the job() method
+        #salary = random.randint(30000, 120000)
+        salary = fake.random_number(digits = 5)
         password = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
         employee_data.append({
             'First Name': first_name,
             'Last Name': last_name,
-            #'Name': name,
-            'Email': email,
-            'Phone Number': phone_number,
-            'Address': address,
-            'SSN': ssn,
             'Job Title': job_title,
             'Department': department,
+            'Email': email,
+            'Address': address,
+            'Phone Number': phone_number,            
             'Salary': salary,
             'Password': password
         })
