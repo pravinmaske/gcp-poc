@@ -1,0 +1,111 @@
+You will need to install below packages 
+1. faker
+2. google-cloud-storage
+
+google-cloud-storage
+Install Google Cloud SDK:
+  -https://cloud.google.com/sdk/docs/install
+
+
+Faced below issues while developing the solution:
+
+*** Issue 1:***
+---------
+PS E:\Git\Git Demo> & "C:/Users/Pravin Maske/AppData/Local/Programs/Python/Python310/python.exe" "e:/Git/Git Demo/extract.py"
+Traceback (most recent call last):
+  File "e:\Git\Git Demo\extract.py", line 5, in <module>
+    from google.cloud import storage
+ModuleNotFoundError: No module named 'google'
+
+Resolution:
+----------
+It seems like you're encountering a `ModuleNotFoundError` for the `google` module when running a Python script that relies on it. This error indicates that the required module (`google.cloud.storage` in this case) is not installed in your Python environment.
+
+To resolve this issue, you need to install the `google-cloud-storage` package. You can install it via pip, which is Python's package manager. Open your command prompt or terminal and run the following command:
+
+```
+pip install google-cloud-storage
+```
+
+Make sure you're using the correct Python environment (since you've provided the full path to the Python executable, it seems you're specifying a particular Python installation), and ensure that pip is associated with that Python version.
+
+Once you've installed the `google-cloud-storage` package, try running your script again. If you encounter any further issues, feel free to ask for assistance!  
+
+*** Issue 2:***
+----------------
+File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\auth\_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, 
+see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+
+
+Resolution:
+-----------
+
+The error message indicates that the script is trying to access Google Cloud services using Application Default Credentials (ADC), but it couldn't find the default credentials. To resolve this issue, you'll need to set up Application Default Credentials for your environment.
+
+Here's a step-by-step guide to set up Application Default Credentials:
+
+1. **Install Google Cloud SDK:**
+   If you haven't already, install the Google Cloud SDK by following the instructions provided here: [Google Cloud SDK Documentation](https://cloud.google.com/sdk/docs/install).
+
+2. **Authenticate with Google Cloud SDK:**
+   Once installed, authenticate with Google Cloud SDK by running the following command in your terminal or command prompt:
+   ```
+   gcloud auth login
+   ```
+   This command will open a browser window prompting you to log in to your Google account and authorize access to Google Cloud resources.
+
+3. **Set Default Project:**
+   After authentication, set the default project for gcloud by running:
+   ```
+   gcloud config set project YOUR_PROJECT_ID
+   ```
+   Replace `YOUR_PROJECT_ID` with the ID of your Google Cloud project   
+
+4. **Enable APIs:**
+   Make sure that the necessary APIs are enabled for your project. For Google Cloud Storage, you'll need to enable the Cloud Storage API. You can do this via the Google Cloud Console or using the gcloud command-line tool.
+
+5. **Retry your Script:**
+   After setting up the credentials and ensuring that the required APIs are enabled, try running your script again. It should now be able to access Google Cloud services using Application Default Credentials.
+
+By following these steps, you should be able to resolve the `DefaultCredentialsError` and successfully access Google Cloud services from your Python script. If you encounter any further issues, feel free to ask for assistance!
+
+
+gcloud config set project radiant-mason-418213
+
+*** Issue 3:***
+----------------
+I was getting below authentication err while executing the code on my local dev environment. I've tried following steps given in Issue 2 resolution but still it was failig.
+
+$ python extract.py
+Traceback (most recent call last):
+  File "E:\Git\Git Demo\extract.py", line 61, in <module>
+    save_to_csv_and_upload_to_gcs(csv_filename, bucket_name, employee_data)
+  File "E:\Git\Git Demo\extract.py", line 46, in save_to_csv_and_upload_to_gcs
+    storage_client = storage.Client()
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\cloud\storage\client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\cloud\client\__init__.py", line 320, in __init__
+    _ClientProjectMixin.__init__(self, project=project, credentials=credentials)
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\cloud\client\__init__.py", line 268, in __init__
+    project = self._determine_default(project)
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\cloud\client\__init__.py", line 287, in _determine_default
+    return _determine_default_project(project)
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\cloud\_helpers\__init__.py", line 152, in _determine_default_project
+    _, project = google.auth.default()
+  File "C:\Users\Pravin Maske\AppData\Local\Programs\Python\Python310\lib\site-packages\google\auth\_default.py", line 691, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+
+Resolution:
+------------
+
+I then tried below steps:
+
+	1. Sign in to the gcloud CLI using the login file:
+		gcloud auth login
+	2. Initialize the gcloud CLI:
+		gcloud init
+	3. Create your local ADC file:
+		gcloud auth application-default login

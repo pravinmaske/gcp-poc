@@ -53,10 +53,10 @@ def save_to_csv_and_upload_to_gcs(filename, bucket_name, employee_data):
 
 
 # Example usage:
-num_records = 3
+num_records = 50
 employee_data = generate_employee_data(num_records)
 csv_filename='employee_data.csv'
-bucket_name = 'stage_bucket'
+bucket_name = 'poc_storage_bkt' # storage bucket name
 
 save_to_csv_and_upload_to_gcs(csv_filename, bucket_name, employee_data)
 
